@@ -3,6 +3,7 @@
 色々インストールする。  
 証明書関連のエラーが出るので無視するための沢山引数が必要
 ```
+pip install Django
 pip --trusted-host pypi.python.org --trusted-host files.pythonhosted.org --trusted-host pypi.org install Django
 ```
 
