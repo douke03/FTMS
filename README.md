@@ -1,4 +1,10 @@
 # FTMS
+## プロジェクト名について
+チームの、チームによる、チームのためのタスク管理システム  
+Task management system of the teams, by the teams, for the teams  
+ftms  
+多分後で変更する。
+
 ## django環境の構築
 色々インストールする。  
 証明書関連のエラーが出るので無視するための沢山引数が必要
