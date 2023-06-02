@@ -3,13 +3,20 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 
-class User(AbstractUser):
+class Base(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    created_date = models.DateTimeField(auto_now_add=True)
+    modified_date = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
+class User(AbstractUser, Base):
     REQUIRED_FIELDS = []
 
 
-class Team(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+class Team(Base):
     name = models.CharField(max_length=80)
     is_public = models.BooleanField(default=False)
 
@@ -17,8 +24,7 @@ class Team(models.Model):
         return self.name
 
 
-class Member(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+class Member(Base):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
     is_team_admin = models.BooleanField(default=False)
@@ -32,7 +38,7 @@ class Member(models.Model):
         super().save(*args, **kwargs)
 
 
-class Task(models.Model):
+class Task(Base):
     NOT_READY = "NOT_READY"
     READY = "READY"
     DOING = "DOING"
@@ -43,7 +49,6 @@ class Task(models.Model):
         (DOING, "Doing"),
         (DONE, "Done"),
     ]
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     subject = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
     status = models.CharField(max_length=40, choices=STATUS_CHOICES, default=NOT_READY)
