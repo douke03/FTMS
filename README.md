@@ -2,7 +2,7 @@
 ## プロジェクト名について
 チームの、チームによる、チームのためのタスク管理システム  
 Task management system of the teams, by the teams, for the teams  
-ftms  
+FTMS  
 多分後で変更する。
 
 ## django環境の構築
@@ -15,7 +15,7 @@ pip --trusted-host pypi.python.org --trusted-host files.pythonhosted.org --trust
 
 ## ローカルサーバの起動
 ```
-python manage.py runserver
+python manage.py runserver --settings=config.settings.develop
 ```
 ## データベーステーブルの作成
 ```
