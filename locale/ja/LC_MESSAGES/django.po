@@ -100,11 +100,11 @@ msgstr "完了日"
 
 #: .\apps\core\models.py:112
 msgid "estimated man hour"
-msgstr "予定工数"
+msgstr "予定工数(時間)"
 
 #: .\apps\core\models.py:115
 msgid "actual man hour"
-msgstr "実績工数"
+msgstr "実績工数(時間)"
 
 #: .\apps\core\models.py:117
 msgid "owner"
