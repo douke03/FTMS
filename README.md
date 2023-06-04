@@ -11,7 +11,9 @@ FTMS
 ```
 pip install Django
 pip --trusted-host pypi.python.org --trusted-host files.pythonhosted.org --trusted-host pypi.org install Django
-```
+
+pip install django-crum
+pip --trusted-host pypi.python.org --trusted-host files.pythonhosted.org --trusted-host pypi.org install django-crum
 
 ## ローカルサーバの起動
 ```
