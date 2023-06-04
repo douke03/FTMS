@@ -14,6 +14,10 @@ pip --trusted-host pypi.python.org --trusted-host files.pythonhosted.org --trust
 
 pip install django-crum
 pip --trusted-host pypi.python.org --trusted-host files.pythonhosted.org --trusted-host pypi.org install django-crum
+```
+
+多言語化対応に gettext が必要。  
+https://stackoverflow.com/questions/35101850/cant-find-msguniq-make-sure-you-have-gnu-gettext-tools-0-15-or-newer-installed
 
 ## ローカルサーバの起動
 ```
@@ -27,4 +31,12 @@ python manage.py migrate
 ## 管理ユーザーを作成する
 ```
 python manage.py createsuperuser
+```
+
+
+## 多言語化対応
+英語を日本語にした方がいろいろと都合がよさそう。
+```
+python -m django makemessages -l ja
+python manage.py compilemessages
 ```
