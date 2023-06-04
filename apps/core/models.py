@@ -1,22 +1,48 @@
 import uuid
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from crum import get_current_user
 
 
-class Base(models.Model):
+class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     created_date = models.DateTimeField(auto_now_add=True)
-    modified_date = models.DateTimeField(auto_now=True)
+    last_modified_date = models.DateTimeField(auto_now=True)
+    REQUIRED_FIELDS = []
+
+
+class CommonItem(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    created_date = models.DateTimeField(auto_now_add=True)
+    last_modified_date = models.DateTimeField(auto_now=True)
+    created_by = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=False,
+        editable=False,
+        related_name="%(app_label)s_%(class)s_created_by",
+    )
+    last_modified_by = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=False,
+        related_name="%(app_label)s_%(class)s_last_modified_by",
+    )
 
     class Meta:
         abstract = True
 
+    def save(self, *args, **kwargs):
+        user = get_current_user()
+        if not self.created_by_id:
+            self.created_by = user
+        self.last_modified_by = user
+        super().save(*args, **kwargs)
 
-class User(AbstractUser, Base):
-    REQUIRED_FIELDS = []
 
-
-class Team(Base):
+class Team(CommonItem):
     name = models.CharField(max_length=80)
     is_public = models.BooleanField(default=False)
 
@@ -24,7 +50,7 @@ class Team(Base):
         return self.name
 
 
-class Member(Base):
+class TeamMember(CommonItem):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
     is_team_admin = models.BooleanField(default=False)
@@ -38,7 +64,7 @@ class Member(Base):
         super().save(*args, **kwargs)
 
 
-class Task(Base):
+class Task(CommonItem):
     NOT_READY = "NOT_READY"
     READY = "READY"
     DOING = "DOING"
@@ -57,6 +83,7 @@ class Task(Base):
     end_date = models.DateField(blank=True, null=True)
     estimated_man_hour = models.TimeField(blank=True, null=True)
     actual_man_hour = models.TimeField(blank=True, null=True)
+    owner = models.TimeField(blank=True, null=True)
 
     def __str__(self):
         return self.subject
