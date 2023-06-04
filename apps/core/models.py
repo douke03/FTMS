@@ -7,8 +7,10 @@ from crum import get_current_user
 
 class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    created_date = models.DateTimeField(auto_now_add=True)
-    modified_date = models.DateTimeField(auto_now=True)
+    created_date = models.DateTimeField(
+        auto_now_add=True, verbose_name=_("created date")
+    )
+    modified_date = models.DateTimeField(auto_now=True, verbose_name=_("modified date"))
     REQUIRED_FIELDS = []
 
 
@@ -61,9 +63,14 @@ class Team(CommonItem):
 
 
 class TeamMember(CommonItem):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    team = models.ForeignKey(Team, on_delete=models.CASCADE)
-    is_team_admin = models.BooleanField(default=False)
+    class Meta:
+        verbose_name = _("team member")
+        verbose_name_plural = _("team members")
+
+    # number = models.BigAutoField(primary_key=True, verbose_name=_("#"))
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_("user"))
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, verbose_name=_("team"))
+    is_team_admin = models.BooleanField(default=False, verbose_name=_("team admin"))
     view = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
@@ -75,6 +82,10 @@ class TeamMember(CommonItem):
 
 
 class Task(CommonItem):
+    class Meta:
+        verbose_name = _("task")
+        verbose_name_plural = _("tasks")
+
     NOT_READY = "NOT_READY"
     READY = "READY"
     DOING = "DOING"
@@ -85,15 +96,25 @@ class Task(CommonItem):
         (DOING, "Doing"),
         (DONE, "Done"),
     ]
-    subject = models.CharField(max_length=255)
-    description = models.TextField(blank=True, null=True)
-    status = models.CharField(max_length=40, choices=STATUS_CHOICES, default=NOT_READY)
-    due_date = models.DateField(blank=True, null=True)
-    start_date = models.DateField(blank=True, null=True)
-    end_date = models.DateField(blank=True, null=True)
-    estimated_man_hour = models.TimeField(blank=True, null=True)
-    actual_man_hour = models.TimeField(blank=True, null=True)
-    owner = models.TimeField(blank=True, null=True)
+    # number = models.BigAutoField(primary_key=True, verbose_name=_("#"))
+    subject = models.CharField(max_length=255, verbose_name=_("subject"))
+    description = models.TextField(blank=True, null=True, verbose_name=_("description"))
+    status = models.CharField(
+        max_length=40,
+        choices=STATUS_CHOICES,
+        default=NOT_READY,
+        verbose_name=_("status"),
+    )
+    due_date = models.DateField(blank=True, null=True, verbose_name=_("due date"))
+    start_date = models.DateField(blank=True, null=True, verbose_name=_("start date"))
+    end_date = models.DateField(blank=True, null=True, verbose_name=_("end date"))
+    estimated_man_hour = models.TimeField(
+        blank=True, null=True, verbose_name=_("estimated man hour")
+    )
+    actual_man_hour = models.TimeField(
+        blank=True, null=True, verbose_name=_("actual man hour")
+    )
+    owner = models.TimeField(blank=True, null=True, verbose_name=_("owner"))
 
     def __str__(self):
         return self.subject
