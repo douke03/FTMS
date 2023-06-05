@@ -33,10 +33,14 @@ class User(AbstractUser):
         # Conditional branch to create a super user.
         if not user:
             user = self
-        if not self.created_by_id:
+        if self.created_date == self.modified_date:
             self.created_by = user
         self.modified_by = user
         super().save(*args, **kwargs)
+        # Create a personal team when creating a user.
+        if self.created_date == self.modified_date:
+            personalTeam = Team.objects.create(name=self.username, is_personal=True)
+            TeamMember.objects.create(user=self, team=personalTeam, is_team_admin=True)
 
 
 class CommonItem(models.Model):
@@ -65,7 +69,7 @@ class CommonItem(models.Model):
 
     def save(self, *args, **kwargs):
         user = get_current_user()
-        if not self.created_by_id:
+        if self.created_date == self.modified_date:
             self.created_by = user
         self.modified_by = user
         super().save(*args, **kwargs)
@@ -78,9 +82,19 @@ class Team(CommonItem):
 
     name = models.CharField(max_length=80, verbose_name=_("team name"))
     is_public = models.BooleanField(default=False, verbose_name=_("public"))
+    is_personal = models.BooleanField(
+        default=False, editable=False, verbose_name=_("personal")
+    )
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        # Create a TeamMember when creating a team.
+        user = get_current_user()
+        if self.created_date == self.modified_date:
+            TeamMember.objects.create(user=user, team=self, is_team_admin=True)
 
 
 class TeamMember(CommonItem):
