@@ -1,5 +1,6 @@
 import uuid
 from django.db import models
+from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 from crum import get_current_user
@@ -11,7 +12,31 @@ class User(AbstractUser):
         auto_now_add=True, verbose_name=_("created date")
     )
     modified_date = models.DateTimeField(auto_now=True, verbose_name=_("modified date"))
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        editable=False,
+        related_name="%(app_label)s_%(class)s_created_by",
+        verbose_name=_("created by"),
+    )
+    modified_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        editable=False,
+        related_name="%(app_label)s_%(class)s_modified_by",
+        verbose_name=_("modified by"),
+    )
     REQUIRED_FIELDS = []
+
+    def save(self, *args, **kwargs):
+        user = get_current_user()
+        # Conditional branch to create a super user.
+        if not user:
+            user = self
+        if not self.created_by_id:
+            self.created_by = user
+        self.modified_by = user
+        super().save(*args, **kwargs)
 
 
 class CommonItem(models.Model):
@@ -24,19 +49,15 @@ class CommonItem(models.Model):
     )
     modified_date = models.DateTimeField(auto_now=True, verbose_name=_("modified date"))
     created_by = models.ForeignKey(
-        User,
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        blank=True,
-        null=False,
         editable=False,
         related_name="%(app_label)s_%(class)s_created_by",
         verbose_name=_("created by"),
     )
     modified_by = models.ForeignKey(
-        User,
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        blank=True,
-        null=False,
         editable=False,
         related_name="%(app_label)s_%(class)s_modified_by",
         verbose_name=_("modified by"),
