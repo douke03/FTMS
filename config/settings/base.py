@@ -38,8 +38,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "apps.core.apps.CoreConfig",
 ]
+INSTALLED_APPS += ["apps.core.apps.CoreConfig"]
+INSTALLED_APPS += ["sequences.apps.SequencesConfig"]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

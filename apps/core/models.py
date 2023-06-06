@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 from crum import get_current_user
+from sequences import get_next_value
 
 
 class User(AbstractUser):
@@ -31,16 +32,24 @@ class User(AbstractUser):
     def save(self, *args, **kwargs):
         user = get_current_user()
         # Conditional branch to create a super user.
-        if not user:
+        if user is None:
             user = self
         if self.created_date == self.modified_date:
             self.created_by = user
         self.modified_by = user
         super().save(*args, **kwargs)
-        # Create a personal team when creating a user.
-        if self.created_date == self.modified_date:
-            personalTeam = Team.objects.create(name=self.username, is_personal=True)
-            TeamMember.objects.create(user=self, team=personalTeam, is_team_admin=True)
+        # Conditional branch to create a super user.
+        if get_current_user() is not None:
+            # Create a personal team if one does not exist.
+            if not (
+                TeamMember.objects.filter(user=self)
+                .filter(team__is_personal=True)
+                .exists()
+            ):
+                personalTeam = Team.objects.create(name=self.username, is_personal=True)
+                TeamMember.objects.create(
+                    user=self, team=personalTeam, is_team_admin=True
+                )
 
 
 class CommonItem(models.Model):
@@ -91,10 +100,12 @@ class Team(CommonItem):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        # Create a TeamMember when creating a team.
-        user = get_current_user()
         if self.created_date == self.modified_date:
-            TeamMember.objects.create(user=user, team=self, is_team_admin=True)
+            if not self.is_personal:
+                # Create a TeamMember when creating a team.
+                TeamMember.objects.create(
+                    user=get_current_user(), team=self, is_team_admin=True
+                )
 
 
 class TeamMember(CommonItem):
@@ -102,17 +113,16 @@ class TeamMember(CommonItem):
         verbose_name = _("team member")
         verbose_name_plural = _("team members")
 
-    # number = models.BigAutoField(primary_key=True, verbose_name=_("#"))
+    number = models.IntegerField(editable=False, verbose_name=_("#"))
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_("user"))
     team = models.ForeignKey(Team, on_delete=models.CASCADE, verbose_name=_("team"))
     is_team_admin = models.BooleanField(default=False, verbose_name=_("team admin"))
-    view = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
-        return self.view
+        return str(self.number)
 
     def save(self, *args, **kwargs):
-        self.view = self.team.name + "_" + self.user.username
+        self.number = get_next_value("model_team_member_seq")
         super().save(*args, **kwargs)
 
 
@@ -131,7 +141,7 @@ class Task(CommonItem):
         (DOING, "Doing"),
         (DONE, "Done"),
     ]
-    # number = models.BigAutoField(primary_key=True, verbose_name=_("#"))
+    number = models.IntegerField(editable=False, verbose_name=_("#"))
     subject = models.CharField(max_length=255, verbose_name=_("subject"))
     description = models.TextField(blank=True, null=True, verbose_name=_("description"))
     status = models.CharField(
@@ -153,3 +163,7 @@ class Task(CommonItem):
 
     def __str__(self):
         return self.subject
+
+    def save(self, *args, **kwargs):
+        self.number = get_next_value("model_task_seq")
+        super().save(*args, **kwargs)
