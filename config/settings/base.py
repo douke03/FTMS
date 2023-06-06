@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 ]
 INSTALLED_APPS += ["apps.core.apps.CoreConfig"]
+INSTALLED_APPS += ["apps.task.apps.TaskConfig"]
 INSTALLED_APPS += ["sequences.apps.SequencesConfig"]
 
 MIDDLEWARE = [

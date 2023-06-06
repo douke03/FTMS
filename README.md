@@ -34,10 +34,15 @@ python manage.py migrate
 python manage.py createsuperuser
 ```
 
-
 ## 多言語化対応
 英語を日本語にした方がいろいろと都合がよさそう。
 ```
 python -m django makemessages -l ja
 python manage.py compilemessages
+```
+
+## git コマンド
+ブランチをきれいにする。
+```
+git fetch -p && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D
 ```
