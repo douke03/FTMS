@@ -7,13 +7,14 @@ FTMS
 
 ## django環境の構築
 色々インストールする。  
-証明書関連のエラーが出るので無視するための沢山引数が必要
 ```
 pip install Django
-pip --trusted-host pypi.python.org --trusted-host files.pythonhosted.org --trusted-host pypi.org install Django
-
 pip install django-crum
-pip --trusted-host pypi.python.org --trusted-host files.pythonhosted.org --trusted-host pypi.org install django-crum
+pip install django-sequences
+```
+証明書関連のエラーが出る場合は無視するための引数が沢山必要
+```
+pip --trusted-host pypi.python.org --trusted-host files.pythonhosted.org --trusted-host pypi.org install Django
 ```
 
 多言語化対応に gettext が必要。  
