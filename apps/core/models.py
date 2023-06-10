@@ -122,6 +122,7 @@ class Team(CommonItem):
         verbose_name_plural = _("teams")
 
     name = models.CharField(max_length=80, verbose_name=_("team name"))
+    description = models.TextField(blank=True, null=True, verbose_name=_("description"))
     is_public = models.BooleanField(default=False, verbose_name=_("public"))
     is_personal = models.BooleanField(
         default=False, editable=False, verbose_name=_("personal")

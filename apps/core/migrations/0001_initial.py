@@ -55,6 +55,7 @@ class Migration(migrations.Migration):
                 ('created_date', models.DateTimeField(auto_now_add=True, verbose_name='created date')),
                 ('modified_date', models.DateTimeField(auto_now=True, verbose_name='modified date')),
                 ('name', models.CharField(max_length=80, verbose_name='team name')),
+                ('description', models.TextField(blank=True, null=True, verbose_name='description')),
                 ('is_public', models.BooleanField(default=False, verbose_name='public')),
                 ('is_personal', models.BooleanField(default=False, editable=False, verbose_name='personal')),
                 ('created_by', models.ForeignKey(editable=False, on_delete=django.db.models.deletion.CASCADE, related_name='%(app_label)s_%(class)s_created_by', to=settings.AUTH_USER_MODEL, verbose_name='created by')),
