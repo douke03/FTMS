@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-08 23:09+0900\n"
+"POT-Creation-Date: 2023-06-11 01:14+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,7 +34,7 @@ msgstr "作成者"
 msgid "modified by"
 msgstr "更新者"
 
-#: .\apps\core\models.py:89 .\apps\core\models.py:118
+#: .\apps\core\models.py:89 .\apps\core\models.py:119
 msgid "team"
 msgstr "チーム"
 
@@ -46,85 +46,95 @@ msgstr "チーム"
 msgid "team name"
 msgstr "チーム名"
 
-#: .\apps\core\models.py:93
-msgid "public"
-msgstr "公開"
-
-#: .\apps\core\models.py:95
-msgid "personal"
-msgstr "個人"
-
-#: .\apps\core\models.py:113
-msgid "team member"
-msgstr "チームメンバー"
-
-#: .\apps\core\models.py:114
-msgid "team members"
-msgstr "チームメンバー"
-
-#: .\apps\core\models.py:116 .\apps\task\models.py:34
-msgid "#"
-msgstr "#"
-
-#: .\apps\core\models.py:117
-msgid "user"
-msgstr "ユーザー"
-
-#: .\apps\core\models.py:119
-msgid "team admin"
-msgstr "チーム管理者"
-
-#: .\apps\task\models.py:9 .\apps\task\models.py:12 .\apps\task\models.py:62
-msgid "milestone"
-msgstr "マイルストーン"
-
-#: .\apps\task\models.py:10
-msgid "milestones"
-msgstr "マイルストーン"
-
-#: .\apps\task\models.py:13 .\apps\task\models.py:36
+#: .\apps\core\models.py:93 .\apps\task\models.py:13 .\apps\task\models.py:27
+#: .\apps\task\models.py:70
 msgid "description"
 msgstr "詳細"
 
-#: .\apps\task\models.py:21
-msgid "task"
-msgstr "タスク"
+#: .\apps\core\models.py:94
+msgid "public"
+msgstr "公開"
 
-#: .\apps\task\models.py:22
-msgid "tasks"
-msgstr "タスク"
+#: .\apps\core\models.py:96
+msgid "personal"
+msgstr "個人"
 
-#: .\apps\task\models.py:35
-msgid "subject"
-msgstr "件名"
+#: .\apps\core\models.py:114
+msgid "team member"
+msgstr "チームメンバー"
 
-#: .\apps\task\models.py:40
-msgid "owner"
-msgstr "担当者"
+#: .\apps\core\models.py:115
+msgid "team members"
+msgstr "チームメンバー"
 
-#: .\apps\task\models.py:46
-msgid "status"
-msgstr "ステータス"
+#: .\apps\core\models.py:117 .\apps\task\models.py:68
+msgid "#"
+msgstr "#"
 
-#: .\apps\task\models.py:48
-msgid "due date"
-msgstr "期日"
+#: .\apps\core\models.py:118
+msgid "user"
+msgstr "ユーザー"
 
-#: .\apps\task\models.py:49
+#: .\apps\core\models.py:120
+msgid "team admin"
+msgstr "チーム管理者"
+
+#: .\apps\task\models.py:9 .\apps\task\models.py:12 .\apps\task\models.py:35
+#: .\apps\task\models.py:98
+msgid "roadmap"
+msgstr "ロードマップ"
+
+#: .\apps\task\models.py:10
+msgid "roadmaps"
+msgstr "ロードマップ"
+
+#: .\apps\task\models.py:14 .\apps\task\models.py:28 .\apps\task\models.py:83
 msgid "start date"
 msgstr "開始日"
 
-#: .\apps\task\models.py:50
+#: .\apps\task\models.py:15 .\apps\task\models.py:29 .\apps\task\models.py:84
 msgid "end date"
 msgstr "完了日"
 
-#: .\apps\task\models.py:52
-msgid "estimated man hour"
-msgstr "予定工数(時間)"
+#: .\apps\task\models.py:23 .\apps\task\models.py:26 .\apps\task\models.py:105
+msgid "milestone"
+msgstr "マイルストーン"
 
-#: .\apps\task\models.py:55
+#: .\apps\task\models.py:24
+msgid "milestones"
+msgstr "マイルストーン"
+
+#: .\apps\task\models.py:48
+msgid "task"
+msgstr "タスク"
+
+#: .\apps\task\models.py:49
+msgid "tasks"
+msgstr "タスク"
+
+#: .\apps\task\models.py:69
+msgid "subject"
+msgstr "件名"
+
+#: .\apps\task\models.py:74
+msgid "owner"
+msgstr "担当者"
+
+#: .\apps\task\models.py:80
+msgid "status"
+msgstr "ステータス"
+
+#: .\apps\task\models.py:82
+msgid "due date"
+msgstr "期日"
+
+#: .\apps\task\models.py:88
+msgid "estimated man hour"
+msgstr "予定工数（時間）"
+
+#: .\apps\task\models.py:91
 msgid "actual man hour"
-msgstr "実績工数(時間)"
+msgstr "実績工数（時間）"
 
 #: .\config\settings\base.py:115
 msgid "English"
