@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-05 01:55+0900\n"
+"POT-Creation-Date: 2023-06-08 23:09+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,102 +18,118 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: .\apps\core\models.py:11 .\apps\core\models.py:23
+#: .\apps\core\models.py:13 .\apps\core\models.py:61
 msgid "created date"
 msgstr "作成日"
 
-#: .\apps\core\models.py:13 .\apps\core\models.py:25
+#: .\apps\core\models.py:15 .\apps\core\models.py:63
 msgid "modified date"
 msgstr "更新日"
 
-#: .\apps\core\models.py:33
+#: .\apps\core\models.py:21 .\apps\core\models.py:69
 msgid "created by"
 msgstr "作成者"
 
-#: .\apps\core\models.py:42
+#: .\apps\core\models.py:28 .\apps\core\models.py:76
 msgid "modified by"
 msgstr "更新者"
 
-#: .\apps\core\models.py:55 .\apps\core\models.py:72
+#: .\apps\core\models.py:89 .\apps\core\models.py:118
 msgid "team"
 msgstr "チーム"
 
-#: .\apps\core\models.py:56
+#: .\apps\core\models.py:90
 msgid "teams"
 msgstr "チーム"
 
-#: .\apps\core\models.py:58
+#: .\apps\core\models.py:92
 msgid "team name"
 msgstr "チーム名"
 
-#: .\apps\core\models.py:59
+#: .\apps\core\models.py:93
 msgid "public"
 msgstr "公開"
 
-#: .\apps\core\models.py:67
+#: .\apps\core\models.py:95
+msgid "personal"
+msgstr "個人"
+
+#: .\apps\core\models.py:113
 msgid "team member"
 msgstr "チームメンバー"
 
-#: .\apps\core\models.py:68
+#: .\apps\core\models.py:114
 msgid "team members"
 msgstr "チームメンバー"
 
-#: .\apps\core\models.py:71
+#: .\apps\core\models.py:116 .\apps\task\models.py:34
+msgid "#"
+msgstr "#"
+
+#: .\apps\core\models.py:117
 msgid "user"
 msgstr "ユーザー"
 
-#: .\apps\core\models.py:73
+#: .\apps\core\models.py:119
 msgid "team admin"
 msgstr "チーム管理者"
 
-#: .\apps\core\models.py:86
-msgid "task"
-msgstr "タスク"
+#: .\apps\task\models.py:9 .\apps\task\models.py:12 .\apps\task\models.py:62
+msgid "milestone"
+msgstr "マイルストーン"
 
-#: .\apps\core\models.py:87
-msgid "tasks"
-msgstr "タスク"
+#: .\apps\task\models.py:10
+msgid "milestones"
+msgstr "マイルストーン"
 
-#: .\apps\core\models.py:100
-msgid "subject"
-msgstr "件名"
-
-#: .\apps\core\models.py:101
+#: .\apps\task\models.py:13 .\apps\task\models.py:36
 msgid "description"
 msgstr "詳細"
 
-#: .\apps\core\models.py:106
-msgid "status"
-msgstr "ステータス"
+#: .\apps\task\models.py:21
+msgid "task"
+msgstr "タスク"
 
-#: .\apps\core\models.py:108
-msgid "due date"
-msgstr "期日"
+#: .\apps\task\models.py:22
+msgid "tasks"
+msgstr "タスク"
 
-#: .\apps\core\models.py:109
-msgid "start date"
-msgstr "開始日"
+#: .\apps\task\models.py:35
+msgid "subject"
+msgstr "件名"
 
-#: .\apps\core\models.py:110
-msgid "end date"
-msgstr "完了日"
-
-#: .\apps\core\models.py:112
-msgid "estimated man hour"
-msgstr "予定工数(時間)"
-
-#: .\apps\core\models.py:115
-msgid "actual man hour"
-msgstr "実績工数(時間)"
-
-#: .\apps\core\models.py:117
+#: .\apps\task\models.py:40
 msgid "owner"
 msgstr "担当者"
 
-#: .\config\settings\base.py:113
+#: .\apps\task\models.py:46
+msgid "status"
+msgstr "ステータス"
+
+#: .\apps\task\models.py:48
+msgid "due date"
+msgstr "期日"
+
+#: .\apps\task\models.py:49
+msgid "start date"
+msgstr "開始日"
+
+#: .\apps\task\models.py:50
+msgid "end date"
+msgstr "完了日"
+
+#: .\apps\task\models.py:52
+msgid "estimated man hour"
+msgstr "予定工数(時間)"
+
+#: .\apps\task\models.py:55
+msgid "actual man hour"
+msgstr "実績工数(時間)"
+
+#: .\config\settings\base.py:115
 msgid "English"
 msgstr "English"
 
-#: .\config\settings\base.py:114
+#: .\config\settings\base.py:116
 msgid "Japanese"
 msgstr "日本語"
