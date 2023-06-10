@@ -9,6 +9,34 @@ from sequences import get_next_value
 
 class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    username = models.CharField(
+        max_length=255,
+        unique=True,
+        verbose_name="user name",
+    )
+    email = models.EmailField(
+        max_length=255,
+        verbose_name="email",
+    )
+    name = models.CharField(
+        max_length=161,
+        editable=False,
+        blank=True,
+        null=True,
+        verbose_name="name",
+    )
+    first_name = models.CharField(
+        max_length=80,
+        blank=True,
+        null=True,
+        verbose_name="first name",
+    )
+    last_name = models.CharField(
+        max_length=80,
+        blank=True,
+        null=True,
+        verbose_name="last name",
+    )
     created_date = models.DateTimeField(
         auto_now_add=True, verbose_name=_("created date")
     )
@@ -27,9 +55,13 @@ class User(AbstractUser):
         related_name="%(app_label)s_%(class)s_modified_by",
         verbose_name=_("modified by"),
     )
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ["email"]
 
     def save(self, *args, **kwargs):
+        self.username = self.email
+        self.first_name = (self.first_name or "").strip()
+        self.last_name = (self.last_name or "").strip()
+        self.name = (self.first_name + " " + self.last_name).strip()
         user = get_current_user()
         # Conditional branch to create a super user.
         if user is None:
