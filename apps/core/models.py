@@ -9,33 +9,16 @@ from sequences import get_next_value
 
 class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    username = models.CharField(
-        max_length=255,
-        unique=True,
-        verbose_name="user name",
-    )
-    email = models.EmailField(
-        max_length=255,
-        verbose_name="email",
-    )
+    username = models.CharField(max_length=255, unique=True, verbose_name="user name")
+    email = models.EmailField(max_length=255, verbose_name="email")
     name = models.CharField(
-        max_length=161,
-        editable=False,
-        blank=True,
-        null=True,
-        verbose_name="name",
+        max_length=161, editable=False, blank=True, null=True, verbose_name="name"
     )
     first_name = models.CharField(
-        max_length=80,
-        blank=True,
-        null=True,
-        verbose_name="first name",
+        max_length=80, blank=True, null=True, verbose_name="first name"
     )
     last_name = models.CharField(
-        max_length=80,
-        blank=True,
-        null=True,
-        verbose_name="last name",
+        max_length=80, blank=True, null=True, verbose_name="last name"
     )
     created_date = models.DateTimeField(
         auto_now_add=True, verbose_name=_("created date")
@@ -155,5 +138,6 @@ class TeamMember(CommonItem):
         return str(self.number)
 
     def save(self, *args, **kwargs):
-        self.number = get_next_value("model_team_member_seq")
+        if not self.number:
+            self.number = get_next_value("model_team_member_seq")
         super().save(*args, **kwargs)
