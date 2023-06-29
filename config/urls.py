@@ -19,6 +19,6 @@ from django.conf.urls.i18n import i18n_patterns
 
 urlpatterns = i18n_patterns(
     path("admin/", admin.site.urls),
-    path("test/", include("apps.core.urls")),
+    path("", include("apps.core.urls")),
     prefix_default_language=False,
 )
